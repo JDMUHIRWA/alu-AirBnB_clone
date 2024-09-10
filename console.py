@@ -204,9 +204,6 @@ class HBNBCommand(cmd.Cmd):
                 obj.save()
 
     def default(self, arg):
-         """
-        Default behavior for cmd module when input is invalid
-        """
         arg_list = arg.split('.')
 
         cls_nm = arg_list[0]  # incoming class name
