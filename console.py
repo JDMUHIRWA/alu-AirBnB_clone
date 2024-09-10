@@ -1,4 +1,4 @@
-#1/usr/bin/python
+#1/usr/bin/python3
 """
 Module documentation
 """
@@ -8,9 +8,8 @@ import cmd
 
 class HBNBCommand(cmd.Cmd):
     """
-    This is my module
+    
     """
-
     prompt = "(hbnb)"
 
     
