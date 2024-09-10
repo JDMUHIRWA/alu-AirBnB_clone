@@ -119,5 +119,24 @@
     "email": "airbnb2@mail.com",
     "password": "root",
     "__class__": "User"
+  },
+  "User.23ce35db-e375-4fa7-a743-944f681439b4": {
+    "id": "23ce35db-e375-4fa7-a743-944f681439b4",
+    "created_at": "2024-09-10T17:05:50.389624",
+    "updated_at": "2024-09-10T17:05:50.389630",
+    "first_name": "Betty",
+    "last_name": "Bar",
+    "email": "airbnb@mail.com",
+    "password": "root",
+    "__class__": "User"
+  },
+  "User.0dfd87d1-96b6-4c6c-b07d-ed2cafa2ecb2": {
+    "id": "0dfd87d1-96b6-4c6c-b07d-ed2cafa2ecb2",
+    "created_at": "2024-09-10T17:05:50.390050",
+    "updated_at": "2024-09-10T17:05:50.390053",
+    "first_name": "John",
+    "email": "airbnb2@mail.com",
+    "password": "root",
+    "__class__": "User"
   }
 }
