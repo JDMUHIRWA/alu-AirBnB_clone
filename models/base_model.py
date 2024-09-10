@@ -1,8 +1,5 @@
 #!/usr/bin/python3
-"""
-This module defines a BaseModel class that 
-defines all common attributes/methods for model classes
-"""
+# module BaseModel class defines all common attributes/methods for model classes
 
 import uuid
 import models
