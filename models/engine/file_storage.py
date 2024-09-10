@@ -1,6 +1,5 @@
 #!/usr/bin/python3
-# Module FileStorage class stores and retrieves objects to and from a JSON file.
-
+# Module FileStorage class stores and retrieves objects to and from a JSON file
 import json
 from models.base_model import BaseModel
 
