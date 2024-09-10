@@ -5,7 +5,7 @@ import cmd
 
 class HBNBCommand(cmd.Cmd):
     """
-    
+    This is my module
     """
 
     prompt = "(hbnb)"
