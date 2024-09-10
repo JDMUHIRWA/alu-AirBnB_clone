@@ -1,5 +1,5 @@
 #!/usr/bin/python3
-# module BaseModel class defines all common attributes/methods for model classes
+# Module BaseModel class defines all common methods for model classes
 
 import uuid
 import models
@@ -28,9 +28,7 @@ class BaseModel:
             models.storage.new(self)
 
     def save(self):
-        """
-        Updates the public instance attribute updated_at with the current datetime.
-        """
+        # Updates the public instance attribute updated_at with the current datetime
         self.updated_at = datetime.now()
         models.storage.save()
 
