@@ -5,7 +5,7 @@ Module documentation
 
 import cmd 
 import shlex
-from model.base_model import BaseModel
+from models.base_model import BaseModel
 from models import storage
 
 
