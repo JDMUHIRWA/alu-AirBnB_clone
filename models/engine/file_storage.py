@@ -5,7 +5,7 @@ from models.base_model import BaseModel
 
 
 class FileStorage:
-    #This class represents a file storage system for storing and retrieving objects
+    # It represents a file storage system for storing, retrieving objects
 
     __file_path = "file.json"
     __objects = {}
