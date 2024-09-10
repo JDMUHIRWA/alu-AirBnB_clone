@@ -100,6 +100,7 @@ class TestFileStorage_methods(unittest.TestCase):
         with self.assertRaises(TypeError):
             models.storage.new(BaseModel(), 1)
 
+
     def test_save(self):
         bm = BaseModel()
         us = User()

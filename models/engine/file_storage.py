@@ -2,6 +2,13 @@
 # Module FileStorage class stores and retrieves objects to and from a JSON file
 import json
 from models.base_model import BaseModel
+from models.user import User
+from models.state import State
+from models.city import City
+from models.amenity import Amenity
+from models.place import Place
+from models.review import Review
+from models.base_model import BaseModel
 
 
 class FileStorage:
@@ -43,17 +50,12 @@ class FileStorage:
         except FileNotFoundError:
             pass
 
-    def reload(self):
-        """
-        Reloads the objects from the JSON file into the storage.
-        """
-        try:
-            with open(FileStorage.__file_path, 'r') as file:
-                obj_dict = json.load(file)
-
-                for key, value in obj_dict.items():
-                    self.__objects[key] = eval(
-                        f"{value['__class__']}(**{value})")
-
-        except FileNotFoundError:
-            pass
+def reload(self):
+    """Deserialize the JSON file to __objects."""
+    try:
+        with open(self.__file_path, 'r') as f:
+            obj_dict = json.load(f)
+        for key, value in obj_dict.items():
+            self.__objects[key] = eval(value['__class__'])(**value)
+    except FileNotFoundError:
+        pass
