@@ -28,7 +28,7 @@ class BaseModel:
             models.storage.new(self)
 
     def save(self):
-        # Updates the public instance attribute updated_at with the current datetime
+        # Updates the pbl instance
         self.updated_at = datetime.now()
         models.storage.save()
 
