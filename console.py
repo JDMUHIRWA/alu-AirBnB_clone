@@ -22,13 +22,11 @@ class HBNBCommand(cmd.Cmd):
 
     def do_quit(self, arg):
         """
-        
         """
         return True
 
     def help_quit(self, arg):
         """
-
         """
         print("Quit command to exit the program")
     
