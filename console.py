@@ -5,6 +5,7 @@ import shlex
 import re
 from models import storage
 from models.base_model import BaseModel
+from models.user import User
 
 
 def split_curly_braces(e_arg):
