@@ -8,14 +8,11 @@ import shlex
 from models.base_model import BaseModel
 from models import storage
 
-
 class HBNBCommand(cmd.Cmd):
     """
-    
     """
     prompt = "(hbnb)"
     valid_classes = ["BaseModel", "User", "State", "City", "Amenity", "Place", "Review"]
-    
     def do_EOF(self, arg):
         """
         

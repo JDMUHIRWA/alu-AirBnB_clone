@@ -6,26 +6,11 @@ from datetime import datetime
 
 class BaseModel:
     """A base class for all hbnb models"""
-    def __init__(self, *args, **kwargs):
-        """Instatntiates a new model"""
-        if not kwargs:
-            from models import storage
-            self.id = str(uuid.uuid4())
-            self.created_at = datetime.now()
-            self.updated_at = datetime.now()
-            storage.new(self)
-        else:
-            kwargs['updated_at'] = datetime.strptime(kwargs['updated_at'],
-                                                     '%Y-%m-%dT%H:%M:%S.%f')
-            kwargs['created_at'] = datetime.strptime(kwargs['created_at'],
-                                                     '%Y-%m-%dT%H:%M:%S.%f')
-            del kwargs['__class__']
-            self.__dict__.update(kwargs)
+    def __init__(self):
+        self.id = str(uuid.uuid4())
 
-    def __str__(self):
-        """Returns a string representation of the instance"""
-        cls = (str(type(self)).split('.')[-1]).split('\'')[0]
-        return '[{}] ({}) {}'.format(cls, self.id, self.__dict__)
+        self.created_at = datetime.now()
+        self.updated_at = datetime.now()
 
     def save(self):
         """Updates updated_at with current time when instance is changed"""
@@ -35,10 +20,28 @@ class BaseModel:
 
     def to_dict(self):
         """Convert instance into dict format"""
-        dictionary = {}
-        dictionary.update(self.__dict__)
-        dictionary.update({'__class__':
-                          (str(type(self)).split('.')[-1]).split('\'')[0]})
-        dictionary['created_at'] = self.created_at.isoformat()
-        dictionary['updated_at'] = self.updated_at.isoformat()
-        return dictionary
+        inst_dict = self.__dict__.copy()
+        inst_dict['__class__'] = self.__class__.__name__
+        inst_dict['created_at'] = self.created_at.isoformat()
+        inst_dict['updated_at'] = self.updated_at.isoformat()
+
+        return inst_dict
+
+    def __str__(self):
+        """Returns a string representation of the instance"""
+        class_name = self.__class__.__name__
+        return "[{}] ({}) {}".format(class_name, self.id, self.__dict__)
+
+if __name__ == '__main__':
+    my_model = BaseModel()
+    my_model.name = "My First Model"
+    my_model.my_number = 89
+    print(my_model.id)
+    print(my_model)
+    print(type(my_model.created_at))
+    print("--")
+    my_model_json = my_model.to_dict()
+    print(my_model_json)
+    print('JSON of my_model:')
+    for key, val in my_model_json.items():
+        print('\t{}: ({}) - {}'.format(key, type(my_model_json[key]), my_model_json[key]))
