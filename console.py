@@ -48,8 +48,8 @@ class HBNBCommand(cmd.Cmd):
             print("** class doesn't exist **")
             return  
         else:
-            new_instance = BaseModel()
-            new_instance.save()
+            new_instance = eval(f"{commands[0]}.()")
+            storage.save()
             print(new_instance.id)
     
     def do_show(self, arg):
