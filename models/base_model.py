@@ -2,7 +2,7 @@
 """This module defines a base class for all models in our hbnb clone"""
 import uuid
 from datetime import datetime
-import models fr
+import models
 
 
 class BaseModel:
@@ -23,7 +23,7 @@ class BaseModel:
             self.created_at = datetime.now()
             self.updated_at = datetime.now()
     
-    models.storage.new(self)
+        models.storage.new(self)
 
     def save(self):
         """Updates updated_at with current time when instance is changed"""
