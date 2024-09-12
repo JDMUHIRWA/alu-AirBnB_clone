@@ -33,13 +33,20 @@ def split_curly_braces(incoming_xtra_arg):
         return id, arg_dict
     else:
         commands = incoming_xtra_arg.split()
-        try:
-            id = commands[0]
-            attr_name = commands[1]
-            attr_value = commands[2]
+        if commands:
+            try:   
+                id = commands[0]
+            except Exeption:
+                return "",""
+            try:
+                attr_name = commands[1]
+            except Exception:
+                return id, ""
+            try:
+                attr_value = commands[2]
+            except Exception:
+                return id, attr_name
             return f"{id}", f"{attr_name}" f"{attr_value}"
-        except Exception:
-            print("** argument missing **")
 
 class HBNBCommand(cmd.Cmd):
     """
@@ -103,9 +110,9 @@ class HBNBCommand(cmd.Cmd):
             if key in objects:
                 print(objects[key])
             else:
-                print("** no instance found **")
+                print ("** no instance found **")
 
-    def do_destroy(self, arg):
+    def do_destroy(self, arg):clr
         """
         Delete an instance based on the class name and id.
         Usage: destroy <class_name> <id>
@@ -238,7 +245,6 @@ class HBNBCommand(cmd.Cmd):
 
                         attr_name1 = attribute_names[0]
                         attr_value1 = attribute_values[0]
-
                         attr_name2 = attribute_names[1]
                         attr_value2 = attribute_values[1]
 
@@ -267,10 +273,11 @@ class HBNBCommand(cmd.Cmd):
         #print(f"{incoming_class_name = }")
 
         command = arg_list[1].split('(')
+        cmd_met = command[0]
 
         incoming_method = command[0]
-        #print(f"{incoming_method = }")
-        incoming_xtra_arg = command[1].split(')')[0]
+
+        e_arg = command[1].split(')')[0]
 
         method_dict = {
                 'all': self.do_all,
@@ -288,18 +295,12 @@ class HBNBCommand(cmd.Cmd):
                     obj_id, arg_dict = split_curly_braces(incoming_xtra_arg)
                 except Exception:
                     pass
-
+                
                 try:
-                    if isinstace(arg_dict, dict):
-                        attributes = arg_dict
-                        return method_dict[incoming_method]("{} {} {}".format(incoming_class_name, obj_id, attributes))
-                    elif isinstance(arg_dict, str):
-                        dict_attributes = arg_dict
-                        return method_dict[incoming_method]("{} {} {}".format(incoming_class_name, obj_id, dict_attributes))
+                    return method_dict[incoming_method]("{} {} {}".format(incoming_class_name, obj_id, arg_dict))
 
                 except Exception:
-                    print("** argument missing **")
-
+                    pass
             # all User or show User 123
         print("*** Unknown syntax: {}".format(arg))
         return False
