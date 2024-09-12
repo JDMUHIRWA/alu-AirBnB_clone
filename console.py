@@ -43,7 +43,8 @@ class HBNBCommand(cmd.Cmd):
     HBNBCommand console class.
     """
     prompt = "(hbnb) "
-    valid_classes = ["BaseModel", "User", "Amenity", "Place", "Review", "State", "City"]
+    valid_classes = ["BaseModel", "User", "Amenity",
+                     "Place", "Review", "State", "City"]
 
     def emptyline(self):
         """Do nothing when an empty line is entered."""
