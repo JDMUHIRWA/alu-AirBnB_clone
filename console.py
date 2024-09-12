@@ -149,7 +149,8 @@ class HBNBCommand(cmd.Cmd):
 
         class_name = commands[0]
         if class_name in self.valid_classes:
-            count = sum(1 for obj in objects.values() if obj.__class__.__name__ == class_name)
+            count = sum(1 for obj in objects.values() 
+            if obj.__class__.__name__ == class_name)
             print(count)
         else:
             print("** invalid class name **")
