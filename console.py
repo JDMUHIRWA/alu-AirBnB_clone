@@ -3,6 +3,7 @@
 import cmd
 import shlex
 import re
+import ast
 from models import storage
 from models.base_model import BaseModel
 from models.user import User
@@ -13,14 +14,14 @@ from models.state import State
 from models.city import City
 
 
-def split_curly_braces(e_arg):
+def split_curly_braces(incoming_xtra_arg):
     """
     Splits the curly braces for the update method
     """
-    curly_braces = re.search(r"\{(.*?)\}", arg)
+    curly_braces = re.search(r"\{(.*?)\}", incoming_xtra_arg)
 
     if curly_braces:
-        id_with_comma = shlex.split(e_arg[:curly_braces.span()[0]])
+        id_with_comma = shlex.split(incoming_xtra_arg[:curly_braces.span()[0]])
         id = [i.strip(",") for i in id_with_comma][0]
 
         str_data = curly_braces.group(1)
@@ -31,22 +32,14 @@ def split_curly_braces(e_arg):
             return
         return id, arg_dict
     else:
-        commands = e_arg.split(",")
-        if commands:
-            try:
-                id = commands[0]
-            except Exception:
-                return "", ""
-            try:
-                attr_name = commands[1]
-            except Exception:
-                return id, ""
-            try:
-                attr_value = commands[2]
-            except Exception:
-                return id, attr_name
-            return f"{id}", f"{attr_name} {attr_value}"
-
+        commands = incoming_xtra_arg.split()
+        try:
+            id = commands[0]
+            attr_name = commands[1]
+            attr_value = commands[2]
+            return f"{id}", f"{attr_name}" f"{attr_value}"
+        except Exception:
+            print("** argument missing **")
 
 class HBNBCommand(cmd.Cmd):
     """
@@ -231,15 +224,35 @@ class HBNBCommand(cmd.Cmd):
                     except Exception:
                         pass
                 else:
+                    obj = objects[key]
+                    curl_braces = re.search(r"\{(.*?)\}", arg)
 
-                    attr_name = commands[2]
-                    attr_value = commands[3]
+                    if curl_braces:
+                        str_data = curl_braces.group(1)
 
-                    try:
-                        attr_value = eval(attr_value)
-                    except Exception:
-                        pass
-                    setattr(obj, attr_name, attr_value)
+                        arg_dict = ast.literal_eval("{" + str_data + "}")
+                        # {"first_name": "John", "age": 30}
+
+                        attribute_names = list(arg_dict.keys())
+                        attribute_values = list(arg_dict.values())
+
+                        attr_name1 = attribute_names[0]
+                        attr_value1 = attribute_values[0]
+
+                        attr_name2 = attribute_names[1]
+                        attr_value2 = attribute_values[1]
+
+                        setattr(obj, attr_name1, attr_value1)
+                        setattr(obj, attr_name2, attr_value2)
+                    else:
+                        attr_name = commands[2]
+                        attr_value = commands[3]
+
+                        try:
+                            attr_value = eval(attr_value)
+                        except Exception:
+                            pass
+                        setattr(obj, attr_name, attr_value)
 
                 obj.save()
 
@@ -257,6 +270,7 @@ class HBNBCommand(cmd.Cmd):
 
         incoming_method = command[0]
         #print(f"{incoming_method = }")
+        incoming_xtra_arg = command[1].split(')')[0]
 
         method_dict = {
                 'all': self.do_all,
@@ -267,9 +281,22 @@ class HBNBCommand(cmd.Cmd):
                 }
 
         if incoming_method in method_dict.keys():
-            return method_dict[incoming_method]("{} {}".format(incoming_class_name, ''))
+            if incoming_method != "update":
+                return method_dict[incoming_method]("{} {}".format(incoming_class_name, incoming_xtra_arg))
+            else: 
+                obj_id, arg_dict = split_curly_braces(incoming_xtra_arg)
+                try:
+                    if isinstance(arg_dict, dict):
+                        attributes = arg_dict
+                        return method_dict[incoming_method]("{} {} {}".format(incoming_class_name, obj_id, attributes))
+                    elif isinstance(arg_dict, str):
+                        dict_attributes = arg_dict
+                        return method_dict[incoming_method]("{} {} {}".format(incoming_class_name, obj_id, dict_attributes))
+
+                except Exception:
+                    print("** argument missing **")
+
             # all User or show User 123
-            
         print("*** Unknown syntax: {}".format(arg))
         return False
 
