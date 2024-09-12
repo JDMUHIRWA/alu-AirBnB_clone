@@ -14,7 +14,7 @@ Run the command interpreter script (console.py).
 Example:
 
 
-$ git clone https://github.com/ktanguy/alu-AirBnB_clone.git
+$ git clone https://github.com/JDMUHIRWA/alu-AirBnB_clone
 $ cd alu-AirBnB_clone
 $ ./console.py
 Welcome to the AirBnB Command Interpreter!
