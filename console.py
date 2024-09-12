@@ -284,9 +284,13 @@ class HBNBCommand(cmd.Cmd):
             if incoming_method != "update":
                 return method_dict[incoming_method]("{} {}".format(incoming_class_name, incoming_xtra_arg))
             else: 
-                obj_id, arg_dict = split_curly_braces(incoming_xtra_arg)
                 try:
-                    if isinstance(arg_dict, dict):
+                    obj_id, arg_dict = split_curly_braces(incoming_xtra_arg)
+                except Exception:
+                    pass
+
+                try:
+                    if isinstace(arg_dict, dict):
                         attributes = arg_dict
                         return method_dict[incoming_method]("{} {} {}".format(incoming_class_name, obj_id, attributes))
                     elif isinstance(arg_dict, str):
