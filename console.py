@@ -164,20 +164,22 @@ class HBNBCommand(cmd.Cmd):
         commands = shlex.split(arg)
 
         if arg:
-            cls_nm = commands[0]
-
+            incoming_class_name = commands[0]
+        
         count = 0
 
         if commands:
-            if cls_nm in self.valid_classes:
+            if incoming_class_name in self.valid_classes:
+
                 for obj in objects.values():
-                    if obj.__class__.__name__ == cls_nm:
+                    if obj.__class__.__name__ == incoming_class_name:
                         count += 1
                 print(count)
             else:
-                print("** invalid class name **")
+               print("** invalid class name **")
         else:
             print("** class name missing **")
+
 
     def do_update(self, arg):
         """
@@ -246,15 +248,15 @@ class HBNBCommand(cmd.Cmd):
         Default behavior for cmd module when input is invalid
         """
         arg_list = arg.split('.')
-        print(f"{arg_list = }")
+        #print(f"{arg_list = }")
 
         incoming_class_name = arg_list[0]
-        print(f"{incoming_class_name = }")
+        #print(f"{incoming_class_name = }")
 
         command = arg_list[1].split('(')
 
         incoming_method = command[0]
-        print(f"{incoming_method = }")
+        #print(f"{incoming_method = }")
 
         method_dict = {
                 'all': self.do_all,
