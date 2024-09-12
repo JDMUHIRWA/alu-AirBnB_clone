@@ -220,7 +220,8 @@ class HBNBCommand(cmd.Cmd):
                 else:
                     instance_id, arg_dict = split_curly_braces(extra_arg)
                     if instance_id is not None:
-                        method_dict[method](f"{class_name} {instance_id} {arg_dict}")
+                        method_dict[method]
+                        (f"{class_name} {instance_id} {arg_dict}")
             else:
                 print(f"*** Unknown syntax: {arg}")
         except (ValueError, IndexError):
