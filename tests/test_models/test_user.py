@@ -1,47 +1,66 @@
 #!/usr/bin/python3
+
+"""Unittest for User Class."""
+
 import unittest
-from models.state import State
+
+from models.user import User
+
 from models.base_model import BaseModel
 
 
-class TestStateClass(unittest.TestCase):
-    """
-    Test case class for the State class, a subclass of BaseModel.
-    """
-    def setUp(self):
-        """ Test if State object is successfully created."""
-        self.state = State()
+class TestCity(unittest.TestCase):
+    """Test cases User class."""
 
-    def test_instance_creation(self):
-        self.assertIsInstance(self.state, State)
+    def test_instance(self):
+        """test instance."""
+        user = User()
+        self.assertIsInstance(user, User)
 
-    def test_inheritance(self):
-        """ Test if State class inherits from BaseModel. """
-        self.assertTrue(issubclass(State, BaseModel))
+    def test_is_class(self):
+        """test instance."""
+        user = User()
+        self.assertEqual(str(type(user)),
+                         "<class 'models.user.User'>")
 
-    def test_name_attribute(self):
-        """ Test if name attribute is present in the State class."""
-        self.assertTrue(hasattr(State, 'name'))
+    def test_is_subclass(self):
+        """test is_subclass."""
+        user = User()
+        self.assertTrue(issubclass(type(user), BaseModel))
 
-    def test_name_attribute_type(self):
-        """ Test if name attribute in State is a string."""
-        self.assertIsInstance(State.name, str)
+    def test_id(self):
+        """test email."""
+        my_user = User()
+        self.assertIsNotNone(my_user.id)
 
-    def test_name_assignment(self):
-        """ Test if assigning a value to name attribute of State
-        updates the attribute correctly."""
-        state = State()
-        state.name = "Dubai, UAE"
-        self.assertEqual(state.name, "Dubai, UAE")
+    def test_email(self):
+        """test email."""
+        my_user = User()
+        self.assertEqual(my_user.email, "")
+        my_user.email = "airbnb@mail.com"
+        self.assertEqual(my_user.email, "airbnb@mail.com")
 
-    def test_inherited_attributes(self):
-        """
-        Confirm that all default superclass attributes are inherited
-        """
-        self.assertTrue('id' in self.state.__dict__)
-        self.assertTrue('created_at' in self.state.__dict__)
-        self.assertTrue('updated_at' in self.state.__dict__)
+    def test_password(self):
+        """test password."""
+        my_user = User()
+        self.assertEqual(my_user.password, "")
+        my_user.password = "root"
+        self.assertEqual(my_user.password, "root")
+
+    def test_first_name(self):
+        """test first name."""
+        my_user = User()
+        self.assertEqual(my_user.first_name, "")
+        my_user.first_name = "Betty"
+        self.assertEqual(my_user.first_name, "Betty")
+
+    def test_last_name(self):
+        """test last name."""
+        my_user = User()
+        self.assertEqual(my_user.last_name, "")
+        my_user.first_name = "Bar"
+        self.assertEqual(my_user.first_name, "Bar")
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     unittest.main()

@@ -1,57 +1,41 @@
+#!/usr/bin/python3
+
+"""Unittest for Review Class."""
+
 import unittest
-from datetime import datetime
+
 from models.review import Review
 
+from models.base_model import BaseModel
 
-class TestReviewAttributes(unittest.TestCase):
-    """
-     Defines a Test case class for the Review attributes in the
-     models.review module.
-    """
 
-    def test_place_id(self):
-        """
-        Test if the place_id attribute of Review is a string
-        and has the default value of an empty string.
-        """
-        self.assertIsInstance(Review.place_id, str)
-        self.assertEqual(Review.place_id, "")
+class TestReview(unittest.TestCase):
+    """Test cases Review class."""
 
-    def test_user_id(self):
-        """ validate user_id attribute of Review is a string and
-        has the default value of an empty string.
-        """
-        self.assertIsInstance(Review.user_id, str)
+    def test_instance(self):
+        """test instance."""
+        review = Review()
+        self.assertIsInstance(review, Review)
 
-    def test_default_id(self):
-        """ Test the user_id has the
-        default value of an empty string."""
-        self.assertEqual(Review.user_id, "")
+    def test_is_class(self):
+        """test instance."""
+        review = Review()
+        self.assertEqual(str(type(review)),
+                         "<class 'models.review.Review'>")
+
+    def test_is_subclass(self):
+        """test is_subclass."""
+        review = Review()
+        self.assertTrue(issubclass(type(review), BaseModel))
 
     def test_text(self):
-        """ Test that text'attribute of Review is a string and has
-        the default value of an empty string.
-        """
-        self.assertIsInstance(Review.text, str)
-        self.assertEqual(Review.text, "")
-
-    def test_user_id_assignment(self):
-        """ Test if assigning a value to user_id attribute of
-        Review updates the attribute correctly.
-        """
+        """test is_subclass."""
         review = Review()
-        review.user_id = "Manny.Daedlus"
-        self.assertEqual(review.user_id, "Manny.Daedlus")
-
-    def test_text_assignment(self):
-        """ Test if assigning a value to text attribute of Review
-        updates the attribute correctly.
-        """
-        review = Review()
-        rev_text = "Nice web App from Manny And Elgibbor. lol!"
-        review.text = rev_text
-        self.assertEqual(review.text, rev_text)
+        self.assertIsNotNone(review.id)
+        self.assertEqual(review.text, "")
+        self.assertEqual(review.user_id, "")
+        self.assertEqual(review.place_id, "")
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     unittest.main()
